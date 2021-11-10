@@ -27,24 +27,37 @@ export const Context = createContext();
 function App() {
   const [employeeDataJSON, setEmployeeDataJSON] = useState([]);
 
-  const [activeValues, setActiveValues] = useState([]);
+  const localStorageTrueArray = () => {
+    let array = [];
+    Object.keys(localStorage).forEach((key) => {
+      if (localStorage[key] === 'true') {
+        array.push(key);
+      }
+    });
+    console.log('initialized a new true array', array)
+    return array;
+  };
+
+  // array of items as default state
+  const [activeValues, setActiveValues] = useState(localStorageTrueArray());
 
   const handleChange = (id) => {
-    const newState = [...activeValues];
-    // let newState = [...activeValues];
+    let newState = [...activeValues];
+    // let newState = {...localStorage}
 
     if (newState.includes(id)) {
       console.log('removing item');
       localStorage.setItem(id, false);
       // use .filter to avoid mutation
-      // newState = newState.filter((item) => item !== id);
-      newState.splice(activeValues.indexOf(id), 1);
+      newState = newState.filter((item) => item !== id);
+      // newState.splice(activeValues.indexOf(id), 1);
     } else {
       // use spreading operator to avoid mutation
-      // newState = [...newState, id];
+      newState = [...newState, id];
       localStorage.setItem(id, true);
       console.log('adding an item');
-      newState.push(id);
+      console.log(activeValues);
+      // newState.push(id);
     }
 
     // console.log(newState);
