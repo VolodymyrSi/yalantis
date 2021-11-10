@@ -1,12 +1,13 @@
 import Radio from './Radio';
 
 const EmployeesItem = (props) => {
+  const style = (id) => localStorage.getItem(id) === 'true';
   return (
     <div style={{ padding: 30, textAlign: 'left' }}>
-      <p>{props.letter}</p>
+      <p style={{ fontWeight: '800' }}>{props.letter}</p>
       {props.employees.map((item) => (
         <div key={item.id}>
-          <p>
+          <p style={{ color: style(item.id) ? 'blue' : 'black', fontWeight:'500' }}>
             {item.firstName} {item.lastName}
           </p>
           <Radio id={item.id} />

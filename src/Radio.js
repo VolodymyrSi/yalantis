@@ -3,12 +3,12 @@ import { Context } from './App';
 
 const Radio = (props) => {
   const handleChange = useContext(Context);
-
+  // const required = localStorage.getItem(props.id) === 'true';
   return (
     <div>
       <input
+        defaultChecked={localStorage.getItem(props.id) === 'false'}
         onChange={(event) => {
-          console.log(event.target.value);
           handleChange(event.target.value);
         }}
         type="radio"
@@ -17,8 +17,8 @@ const Radio = (props) => {
       />{' '}
       not active
       <input
+        defaultChecked={localStorage.getItem(props.id) === 'true'}
         onChange={(event) => {
-          console.log(event.target.value);
           handleChange(event.target.value);
         }}
         type="radio"

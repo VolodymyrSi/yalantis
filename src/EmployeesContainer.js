@@ -5,7 +5,7 @@ const EmployeesContainer = (props) => {
   const alphabet = alpha.map((x) => String.fromCharCode(x));
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', maxWidth:'80%'}}>
       {alphabet.map((letter) => (
         <EmployeesItem
           key={letter}
