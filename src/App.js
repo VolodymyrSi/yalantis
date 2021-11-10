@@ -4,11 +4,12 @@ import ActiveEmployeesContainer from './ActiveEmployeesContainer';
 import { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
 
+// move fetch to a separate file?
+
 const fetchEmployeeData = () => {
   return axios
     .get('https://yalantis-react-school-api.yalantis.com/api/task0/users')
     .then((response) => {
-      // handle success
       response.data.forEach((item) => {
         if (localStorage.getItem(item.id) === null) {
           localStorage.setItem(item.id, false);
@@ -17,7 +18,6 @@ const fetchEmployeeData = () => {
       return response.data;
     })
     .catch((error) => {
-      // handle error
       console.log(error);
     });
 };
@@ -27,22 +27,22 @@ export const Context = createContext();
 function App() {
   const [employeeDataJSON, setEmployeeDataJSON] = useState([]);
 
-  const localStorageTrueArray = () => {
+  const localStorageSelectedValuesArray = () => {
     let array = [];
     Object.keys(localStorage).forEach((key) => {
       if (localStorage[key] === 'true') {
         array.push(key);
       }
     });
-    console.log('initialized a new true array', array);
     return array;
   };
 
-  // array of items as default state
-  const [activeValues, setActiveValues] = useState(localStorageTrueArray());
+  const [activeIdValues, setActiveIdValues] = useState(
+    localStorageSelectedValuesArray()
+  );
 
   const handleChange = (id) => {
-    let newState = [...activeValues];
+    let newState = [...activeIdValues];
 
     if (newState.includes(id)) {
       console.log('the item exists, removing the item');
@@ -53,11 +53,9 @@ function App() {
       // use spreading operator to avoid mutation
       newState = [...newState, id];
       localStorage.setItem(id, true);
-      console.log('no such item, adding an item');
-      console.log(activeValues);
     }
 
-    setActiveValues(newState);
+    setActiveIdValues(newState);
   };
 
   useEffect(() => {
@@ -70,9 +68,8 @@ function App() {
     <Context.Provider value={handleChange}>
       <div className="App" style={{ display: 'flex' }}>
         <EmployeesContainer dataObject={employeeDataJSON} />
-
         <ActiveEmployeesContainer
-          activeArray={activeValues}
+          activeArray={activeIdValues}
           allEmployees={employeeDataJSON}
         />
       </div>

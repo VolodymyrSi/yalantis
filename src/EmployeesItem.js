@@ -1,25 +1,25 @@
 import Radio from './Radio';
 import PropTypes from 'prop-types';
 
-const EmployeesItem = (props) => {
-  const style = (id) => localStorage.getItem(id) === 'true';
+const EmployeesItem = ({ letter, employees }) => {
+  const isBlue = (id) => localStorage.getItem(id) === 'true';
   return (
-    <div style={{ padding: 30, textAlign: 'left' }}>
-      <p style={{ fontWeight: '800' }}>{props.letter}</p>
-      {props.employees.map((item) => (
-        <div key={item.id}>
+    <div style={{ margin: 30, textAlign: 'left', width: '25%' }}>
+      <p style={{ fontWeight: '800' }}>{letter}</p>
+      {employees.map(({ id, firstName, lastName }) => (
+        <div key={id}>
           <p
             style={{
-              color: style(item.id) ? 'blue' : 'black',
+              color: isBlue(id) ? 'blue' : 'black',
               fontWeight: '500'
             }}
           >
-            {item.firstName} {item.lastName}
+            {firstName} {lastName}
           </p>
-          <Radio id={item.id} />
+          <Radio id={id} />
         </div>
       ))}
-      {props.employees.length === 0 && <p>No Employees</p>}
+      {employees.length === 0 && <p>No Employees</p>}
     </div>
   );
 };

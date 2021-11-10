@@ -19,7 +19,6 @@ const ActiveEmployeesItem = ({ activeArray, sortedEmployees, month }) => {
 
   useEffect(() => {
     setActiveEmployees(
-      // sortedEmployees.filter((person) => activeArray.includes(person.id))
       sortedEmployees.filter(
         (person) => localStorage.getItem(person.id) === 'true'
       )
@@ -30,12 +29,11 @@ const ActiveEmployeesItem = ({ activeArray, sortedEmployees, month }) => {
     <ul>
       <h3>{month}</h3>
       {activeEmployees.length === 0 && <p>No Employees</p>}
-      {/* {localStorage.length === 0 && <p>No Employees</p>} */}
       {activeEmployees.length > 0 &&
-        activeEmployees.map((item) => (
-          <li key={item.id}>
+        activeEmployees.map(({id, firstName, lastName, dob}) => (
+          <li key={id}>
             <p>
-              {item.firstName} {item.lastName} - {FormattedDate(item.dob)}
+              {firstName} {lastName} - {FormattedDate(dob)}
             </p>
           </li>
         ))}

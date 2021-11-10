@@ -2,8 +2,11 @@ import EmployeesItem from './EmployeesItem';
 import PropTypes from 'prop-types';
 
 const EmployeesContainer = (props) => {
-  const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-  const alphabet = alpha.map((x) => String.fromCharCode(x));
+  function getAlphabetArray() {
+    const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+    const alphabet = alpha.map((x) => String.fromCharCode(x));
+    return alphabet;
+  }
 
   return (
     <div
@@ -14,7 +17,7 @@ const EmployeesContainer = (props) => {
         width: '75%'
       }}
     >
-      {alphabet.map((letter) => (
+      {getAlphabetArray().map((letter) => (
         <EmployeesItem
           key={letter}
           letter={letter}

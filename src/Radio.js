@@ -1,33 +1,38 @@
 import { useContext } from 'react';
 import { Context } from './App';
+import PropTypes from 'prop-types';
 
-const Radio = (props) => {
+const Radio = ({ id }) => {
   const handleChange = useContext(Context);
-  // const required = localStorage.getItem(props.id) === 'true';
+  const required = localStorage.getItem(id) === 'true';
   return (
     <div>
       <input
-        defaultChecked={localStorage.getItem(props.id) === 'false'}
+        defaultChecked={!required}
         onChange={(event) => {
           handleChange(event.target.value);
         }}
         type="radio"
-        value={props.id}
-        name={props.id + 'isActive'}
-      />{' '}
+        value={id}
+        name={id + 'isActive'}
+      />
       not active
       <input
-        defaultChecked={localStorage.getItem(props.id) === 'true'}
+        defaultChecked={required}
         onChange={(event) => {
           handleChange(event.target.value);
         }}
         type="radio"
-        value={props.id}
-        name={props.id + 'isActive'}
-      />{' '}
+        value={id}
+        name={id + 'isActive'}
+      />
       active
     </div>
   );
+};
+
+Radio.propTypes = {
+  id: PropTypes.string
 };
 
 export default Radio;
