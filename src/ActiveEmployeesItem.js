@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const ActiveEmployeesItem = ({ activeArray, sortedEmployees, month }) => {
   const [activeEmployees, setActiveEmployees] = useState([]);
@@ -40,6 +41,12 @@ const ActiveEmployeesItem = ({ activeArray, sortedEmployees, month }) => {
         ))}
     </ul>
   );
+};
+
+ActiveEmployeesItem.propTypes = {
+  month: PropTypes.string,
+  sortedEmployees: PropTypes.array,
+  activeArray: PropTypes.array
 };
 
 export default ActiveEmployeesItem;

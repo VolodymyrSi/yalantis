@@ -34,7 +34,7 @@ function App() {
         array.push(key);
       }
     });
-    console.log('initialized a new true array', array)
+    console.log('initialized a new true array', array);
     return array;
   };
 
@@ -43,30 +43,25 @@ function App() {
 
   const handleChange = (id) => {
     let newState = [...activeValues];
-    // let newState = {...localStorage}
 
     if (newState.includes(id)) {
-      console.log('removing item');
+      console.log('the item exists, removing the item');
       localStorage.setItem(id, false);
       // use .filter to avoid mutation
       newState = newState.filter((item) => item !== id);
-      // newState.splice(activeValues.indexOf(id), 1);
     } else {
       // use spreading operator to avoid mutation
       newState = [...newState, id];
       localStorage.setItem(id, true);
-      console.log('adding an item');
+      console.log('no such item, adding an item');
       console.log(activeValues);
-      // newState.push(id);
     }
 
-    // console.log(newState);
     setActiveValues(newState);
   };
 
   useEffect(() => {
     fetchEmployeeData().then((employeeData) => {
-      // console.log('emp data', employeeData);
       setEmployeeDataJSON(employeeData);
     });
   }, []);
