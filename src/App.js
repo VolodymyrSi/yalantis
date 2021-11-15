@@ -3,8 +3,7 @@ import EmployeesContainer from './EmployeesContainer';
 import ActiveEmployeesContainer from './ActiveEmployeesContainer';
 import { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
-
-// move fetch to a separate file?
+// import in reverse order: external libraries, local components, styles
 
 const fetchEmployeeData = () => {
   return axios
@@ -25,9 +24,9 @@ const fetchEmployeeData = () => {
 export const Context = createContext();
 
 function App() {
-  const [employeeDataJSON, setEmployeeDataJSON] = useState([]);
+  const [employeeDataJSON, setEmployeeDataJSON] = useState([]); // rm JSON from name
 
-  const localStorageSelectedValuesArray = () => {
+  const localStorageSelectedValuesArray = () => { // move from component to helper.js
     let array = [];
     Object.keys(localStorage).forEach((key) => {
       if (localStorage[key] === 'true') {
@@ -47,10 +46,8 @@ function App() {
     if (newState.includes(id)) {
       console.log('the item exists, removing the item');
       localStorage.setItem(id, false);
-      // use .filter to avoid mutation
       newState = newState.filter((item) => item !== id);
     } else {
-      // use spreading operator to avoid mutation
       newState = [...newState, id];
       localStorage.setItem(id, true);
     }
@@ -60,6 +57,7 @@ function App() {
 
   useEffect(() => {
     fetchEmployeeData().then((employeeData) => {
+      // push to local storage here
       setEmployeeDataJSON(employeeData);
     });
   }, []);

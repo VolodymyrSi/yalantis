@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ActiveEmployeesItem = ({ activeArray, sortedEmployees, month }) => {
   const [activeEmployees, setActiveEmployees] = useState([]);
 
-  function FormattedDate(dateObj) {
+  function FormattedDate(dateObj) { // move to helper.js or ust outside of component
     dateObj = new Date(dateObj);
     const dateToMonth = dateObj.toLocaleString('en-us', { month: 'long' });
     return (

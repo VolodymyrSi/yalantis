@@ -1,8 +1,12 @@
 import Radio from './Radio';
 import PropTypes from 'prop-types';
+// import in reverse order: external libraries, local components
 
+// EmployeesList instead of EmployeesItem ?
 const EmployeesItem = ({ letter, employees }) => {
+  // isActive
   const isBlue = (id) => localStorage.getItem(id) === 'true';
+
   return (
     <div style={{ margin: 30, textAlign: 'left', width: '25%' }}>
       <p style={{ fontWeight: '800' }}>{letter}</p>
@@ -26,6 +30,7 @@ const EmployeesItem = ({ letter, employees }) => {
 
 EmployeesItem.propTypes = {
   letter: PropTypes.string.isRequired,
+  // use PropTypes.shape for employees
   employees: PropTypes.array.isRequired
 };
 

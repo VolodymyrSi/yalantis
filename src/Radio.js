@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 
 const Radio = ({ id }) => {
   const handleChange = useContext(Context);
+  // isChecked
   const required = localStorage.getItem(id) === 'true';
+
   return (
     <div>
       <input
@@ -14,7 +16,7 @@ const Radio = ({ id }) => {
         }}
         type="radio"
         value={id}
-        name={id + 'isActive'}
+        name={id + 'isActive'} // `${id}_is_active`
       />
       not active
       <input
@@ -24,7 +26,7 @@ const Radio = ({ id }) => {
         }}
         type="radio"
         value={id}
-        name={id + 'isActive'}
+        name={id + 'isActive'} // `${id}_is_active`
       />
       active
     </div>
@@ -32,7 +34,7 @@ const Radio = ({ id }) => {
 };
 
 Radio.propTypes = {
-  id: PropTypes.string
+  id: PropTypes.string // isRequired ?
 };
 
 export default Radio;

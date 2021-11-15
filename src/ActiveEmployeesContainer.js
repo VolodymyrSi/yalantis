@@ -1,8 +1,10 @@
 import ActiveEmployeesItem from './ActiveEmployeesItem';
 import PropTypes from 'prop-types';
 
+// move this functions to helper.js
 function formatDate(dateObj) {
   const newDate = new Date(dateObj);
+  // return newDate.toLocaleString('en-us', { month: 'long' })
   const dateToMonth = newDate.toLocaleString('en-us', { month: 'long' });
   return dateToMonth;
 }
@@ -23,18 +25,18 @@ function sortedMonths() {
     'December'
   ];
 
-  function formatDate(dateObj) {
+  function formatDate(dateObj) { // move outside sortedMonths
     const newDate = new Date(dateObj);
     const dateToMonth = newDate.toLocaleString('en-us', { month: 'long' });
     return dateToMonth;
   }
 
-  function currentMonth() {
+  function currentMonth() { // move outside sortedMonths
     let today = new Date();
     return formatDate(today);
   }
 
-  function sort(array, first) {
+  function sort(array, first) { // move outside sortedMonths
     const months = {
       January: 1,
       February: 2,
@@ -49,6 +51,7 @@ function sortedMonths() {
       November: 11,
       December: 12
     };
+    // array == Object.keys(months) ??
     return array.sort(
       (a, b) =>
         (months[a] < months[first]) - (months[b] < months[first]) ||
@@ -58,19 +61,20 @@ function sortedMonths() {
   return sort(months, currentMonth());
 }
 
-function shouldRenderData() {
-  // why does it console log this many times?
+function shouldRenderData() { // move to helper.js
   console.log(Object.values(localStorage).some((item) => item === 'true'));
   return Object.values(localStorage).some((item) => item === 'true');
 }
 
 const ActiveEmployeesContainer = ({ activeArray, allEmployees }) => {
+  const shouldRenderList = shouldRenderData();
+  // save sortedMonths() to const outside of component
+  // change activeArray name to activeIds ??
   return (
     <div style={{ textAlign: 'center', width: '25%' }}>
       <h2>Employees Birthday</h2>
-      {/* maybe the problem is here? */}
-      {!shouldRenderData() && <p>Employees list is empty</p>}
-      {shouldRenderData() === true &&
+      {!shouldRenderList && <p>Employees list is empty</p>}
+      {shouldRenderList &&
         sortedMonths().map((month) => (
           <ActiveEmployeesItem
             key={month}
@@ -87,6 +91,7 @@ const ActiveEmployeesContainer = ({ activeArray, allEmployees }) => {
 
 ActiveEmployeesContainer.propTypes = {
   activeArray: PropTypes.array.isRequired,
+  // use PropTypes.shape for allEmployees
   allEmployees: PropTypes.array.isRequired
 };
 
