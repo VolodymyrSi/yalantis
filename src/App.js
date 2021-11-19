@@ -1,19 +1,14 @@
-import './App.css';
-import EmployeesContainer from './EmployeesContainer';
-import ActiveEmployeesContainer from './ActiveEmployeesContainer';
 import { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
-// import in reverse order: external libraries, local components, styles
+import './styles/App.css';
+import EmployeesContainer from './pages/EmployeesContainer';
+import ActiveEmployeesContainer from './pages/ActiveEmployeesContainer';
+import { localStorageSelectedValuesArray } from './utils/helper';
 
 const fetchEmployeeData = () => {
   return axios
     .get('https://yalantis-react-school-api.yalantis.com/api/task0/users')
     .then((response) => {
-      response.data.forEach((item) => {
-        if (localStorage.getItem(item.id) === null) {
-          localStorage.setItem(item.id, false);
-        }
-      });
       return response.data;
     })
     .catch((error) => {
@@ -24,17 +19,7 @@ const fetchEmployeeData = () => {
 export const Context = createContext();
 
 function App() {
-  const [employeeDataJSON, setEmployeeDataJSON] = useState([]); // rm JSON from name
-
-  const localStorageSelectedValuesArray = () => { // move from component to helper.js
-    let array = [];
-    Object.keys(localStorage).forEach((key) => {
-      if (localStorage[key] === 'true') {
-        array.push(key);
-      }
-    });
-    return array;
-  };
+  const [employeeData, setEmployeeData] = useState([]);
 
   const [activeIdValues, setActiveIdValues] = useState(
     localStorageSelectedValuesArray()
@@ -57,18 +42,22 @@ function App() {
 
   useEffect(() => {
     fetchEmployeeData().then((employeeData) => {
-      // push to local storage here
-      setEmployeeDataJSON(employeeData);
+      employeeData.forEach((item) => {
+        if (localStorage.getItem(item.id) === null) {
+          localStorage.setItem(item.id, false);
+        }
+      });
+      setEmployeeData(employeeData);
     });
   }, []);
 
   return (
     <Context.Provider value={handleChange}>
       <div className="App" style={{ display: 'flex' }}>
-        <EmployeesContainer dataObject={employeeDataJSON} />
+        <EmployeesContainer employeeData={employeeData} />
         <ActiveEmployeesContainer
           activeArray={activeIdValues}
-          allEmployees={employeeDataJSON}
+          allEmployees={employeeData}
         />
       </div>
     </Context.Provider>

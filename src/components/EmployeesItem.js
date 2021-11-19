@@ -1,11 +1,8 @@
-import Radio from './Radio';
 import PropTypes from 'prop-types';
-// import in reverse order: external libraries, local components
+import Radio from './Radio';
 
-// EmployeesList instead of EmployeesItem ?
-const EmployeesItem = ({ letter, employees }) => {
-  // isActive
-  const isBlue = (id) => localStorage.getItem(id) === 'true';
+const EmployeesList = ({ letter, employees }) => {
+  const isActive = (id) => localStorage.getItem(id) === 'true';
 
   return (
     <div style={{ margin: 30, textAlign: 'left', width: '25%' }}>
@@ -14,7 +11,7 @@ const EmployeesItem = ({ letter, employees }) => {
         <div key={id}>
           <p
             style={{
-              color: isBlue(id) ? 'blue' : 'black',
+              color: isActive(id) ? 'blue' : 'black',
               fontWeight: '500'
             }}
           >
@@ -28,10 +25,10 @@ const EmployeesItem = ({ letter, employees }) => {
   );
 };
 
-EmployeesItem.propTypes = {
+EmployeesList.propTypes = {
   letter: PropTypes.string.isRequired,
   // use PropTypes.shape for employees
   employees: PropTypes.array.isRequired
 };
 
-export default EmployeesItem;
+export default EmployeesList;

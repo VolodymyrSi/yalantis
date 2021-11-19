@@ -1,21 +1,9 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import {FormattedDate} from '../utils/helper'
 
-const ActiveEmployeesItem = ({ activeArray, sortedEmployees, month }) => {
+const ActiveEmployeesItem = ({ activeIds, sortedEmployees, month }) => {
   const [activeEmployees, setActiveEmployees] = useState([]);
-
-  function FormattedDate(dateObj) { // move to helper.js or ust outside of component
-    dateObj = new Date(dateObj);
-    const dateToMonth = dateObj.toLocaleString('en-us', { month: 'long' });
-    return (
-      dateObj.getDate() +
-      ' ' +
-      dateToMonth +
-      ', ' +
-      dateObj.getFullYear() +
-      ' year'
-    );
-  }
 
   useEffect(() => {
     setActiveEmployees(
@@ -23,7 +11,7 @@ const ActiveEmployeesItem = ({ activeArray, sortedEmployees, month }) => {
         (person) => localStorage.getItem(person.id) === 'true'
       )
     );
-  }, [activeArray, sortedEmployees]);
+  }, [activeIds, sortedEmployees]);
 
   return (
     <ul>
@@ -44,7 +32,7 @@ const ActiveEmployeesItem = ({ activeArray, sortedEmployees, month }) => {
 ActiveEmployeesItem.propTypes = {
   month: PropTypes.string,
   sortedEmployees: PropTypes.array,
-  activeArray: PropTypes.array
+  activeIds: PropTypes.array
 };
 
 export default ActiveEmployeesItem;

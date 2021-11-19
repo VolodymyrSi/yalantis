@@ -1,14 +1,8 @@
-import EmployeesItem from './EmployeesItem';
 import PropTypes from 'prop-types';
-// import in reverse order: external libraries, local components, styles
+import EmployeesItem from '../components/EmployeesItem';
+import { getAlphabetArray } from '../utils/helper';
 
 const EmployeesContainer = (props) => {
-  function getAlphabetArray() { // move from component to helper.js
-    const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-    const alphabet = alpha.map((x) => String.fromCharCode(x));
-    return alphabet;
-  }
-
   return (
     <div
       style={{
@@ -22,7 +16,7 @@ const EmployeesContainer = (props) => {
         <EmployeesItem
           key={letter}
           letter={letter}
-          employees={props.dataObject // dataObject is array, better name employeeData
+          employees={props.employeeData
             .filter((item) => item.firstName[0] === letter)
             .sort((a, b) => a.firstName.localeCompare(b.firstName))}
         />
@@ -33,8 +27,8 @@ const EmployeesContainer = (props) => {
 
 EmployeesContainer.propTypes = {
   // use PropTypes.shape() to describe object keys and values
-  // dataObject: PropTypes.arrayOf(PropTypes.shape({...}))
-  dataObject: PropTypes.array.isRequired,
+  // employeeData: PropTypes.arrayOf(PropTypes.shape({...}))
+  employeeData: PropTypes.array.isRequired
 };
 
 export default EmployeesContainer;
