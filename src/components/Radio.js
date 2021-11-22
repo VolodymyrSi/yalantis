@@ -33,7 +33,7 @@ const Radio = ({ id }) => {
 };
 
 Radio.propTypes = {
-  id: PropTypes.string // isRequired ?
+  id: PropTypes.string.isRequired
 };
 
 export default Radio;

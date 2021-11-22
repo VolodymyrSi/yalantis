@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import ActiveEmployeesItem from '../components/ActiveEmployeesItem';
 import { formatDate } from '../utils/helper';
 import { shouldRenderData } from '../utils/helper';
-import {sortedMonths} from '../utils/helper'
+import { sortedMonths } from '../utils/helper';
 
 const ActiveEmployeesContainer = ({ activeIds, allEmployees }) => {
   const shouldRenderList = shouldRenderData();
@@ -26,9 +26,14 @@ const ActiveEmployeesContainer = ({ activeIds, allEmployees }) => {
 };
 
 ActiveEmployeesContainer.propTypes = {
-  activeIds: PropTypes.array.isRequired,
-  // use PropTypes.shape for allEmployees
-  allEmployees: PropTypes.array.isRequired
+  activeIds: PropTypes.array,
+  allEmployees: PropTypes.arrayOf(
+    PropTypes.shape({
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      dob: PropTypes.string.isRequired
+    })
+  ).isRequired
 };
 
 export default ActiveEmployeesContainer;

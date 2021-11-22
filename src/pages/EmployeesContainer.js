@@ -26,9 +26,12 @@ const EmployeesContainer = (props) => {
 };
 
 EmployeesContainer.propTypes = {
-  // use PropTypes.shape() to describe object keys and values
-  // employeeData: PropTypes.arrayOf(PropTypes.shape({...}))
-  employeeData: PropTypes.array.isRequired
+  employeeData: PropTypes.arrayOf(
+    PropTypes.shape({
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired
+    })
+  ).isRequired
 };
 
 export default EmployeesContainer;

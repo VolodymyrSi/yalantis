@@ -27,8 +27,14 @@ const EmployeesList = ({ letter, employees }) => {
 
 EmployeesList.propTypes = {
   letter: PropTypes.string.isRequired,
-  // use PropTypes.shape for employees
-  employees: PropTypes.array.isRequired
+  employees: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      dob: PropTypes.string.isRequired
+    })
+  ).isRequired
 };
 
 export default EmployeesList;
