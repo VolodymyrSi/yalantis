@@ -29,7 +29,6 @@ function App() {
     let newState = [...activeIdValues];
 
     if (newState.includes(id)) {
-      console.log('the item exists, removing the item');
       localStorage.setItem(id, false);
       newState = newState.filter((item) => item !== id);
     } else {
