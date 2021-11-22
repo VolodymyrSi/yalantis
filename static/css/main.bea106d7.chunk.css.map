@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/styles/App.css"],"names":[],"mappings":"AAAA,cAEE,wBACF,CAEA,GACE,uBAAqB,CAArB,oBAAqB,CACrB,sBAAmB,CAAnB,kBAAmB,CACnB,uBAAuB,CAAvB,sBACF","file":"main.bea106d7.chunk.css","sourcesContent":["body,\nbody div {\n  background-color: #f3f3f3;\n}\n\nul {\n  margin-block-start: 0;\n  margin-block-end: 0;\n  padding-inline-start: 0;\n}\n"]}
